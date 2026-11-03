@@ -342,14 +342,14 @@ export default function Home({
   return (
     <Fragment>
       <Head>
-        <title>Moopa</title>
+        <title>Kazani</title>
         <meta charSet="UTF-8"></meta>
         <link rel="icon" href="/svg/c.svg" />
         <link rel="canonical" href="https://moopa.live/en/" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="description"
-          content="Discover your new favorite anime or manga title! Moopa offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Moopa today!"
+          content="Discover your new favorite anime or manga title! Kazani offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Kazani today!"
         />
         <meta
           name="keywords"
@@ -362,22 +362,22 @@ export default function Home({
         <meta property="og:url" content="https://moopa.live/" />
         <meta
           property="og:title"
-          content="Moopa - Free Anime and Manga Streaming"
+          content="Kazani - Free Anime and Manga Streaming"
         />
         <meta
           property="og:description"
-          content="Discover your new favorite anime or manga title! Moopa offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Moopa today!"
+          content="Discover your new favorite anime or manga title! Kazani offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Kazani today!"
         />
         <meta property="og:image" content="/preview.png" />
-        <meta property="og:site_name" content="Moopa" />
+        <meta property="og:site_name" content="Kazani" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Moopa - Free Anime and Manga Streaming"
+          content="Kazani - Free Anime and Manga Streaming"
         />
         <meta
           name="twitter:description"
-          content="Discover your new favorite anime or manga title! Moopa offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Moopa today!"
+          content="Discover your new favorite anime or manga title! Kazani offers a vast library of high-quality content, accessible on multiple devices and without any interruptions. Start using Kazani today!"
         />
         <meta name="twitter:image" content="/preview.png" />
       </Head>

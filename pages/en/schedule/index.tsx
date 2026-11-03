@@ -217,24 +217,24 @@ export default function Schedule({ schedule }: any) {
   return (
     <>
       <Head>
-        <title>Moopa - Schedule</title>
+        <title>Kazani - Schedule</title>
         {/* write a meta with good seo for this page */}
         <meta
           name="description"
-          content="Moopa is a website where you can find all the information about your favorite anime and manga."
+          content="Kazani is a website where you can find all the information about your favorite anime and manga."
         />
         <meta
           name="keywords"
-          content="anime, manga, moopa, anilist, information, schedule, airing, next, currently, airing, anime, manga"
+          content="anime, manga, kazani, anilist, information, schedule, airing, next, currently, airing, anime, manga"
         />
         <meta name="robots" content="index, follow" />
-        <meta name="author" content="Moopa Team" />
+        <meta name="author" content="Kazani Team" />
         <meta name="url" content="https://moopa.live/en/schedule" />
-        <meta name="og:title" property="og:title" content="Moopa - Schedule" />
+        <meta name="og:title" property="og:title" content="Kazani - Schedule" />
         <meta
           name="og:description"
           property="og:description"
-          content="Moopa is a website where you can find all the information about your favorite anime and manga."
+          content="Kazani is a website where you can find all the information about your favorite anime and manga."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://moopa.live/en/schedule" />
@@ -244,25 +244,25 @@ export default function Schedule({ schedule }: any) {
         />
         <meta
           property="og:image:alt"
-          content="Moopa is a website where you can find all the information about your favorite anime and manga."
+          content="Kazani is a website where you can find all the information about your favorite anime and manga."
         />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:site_name" content="Moopa" />
+        <meta property="og:site_name" content="Kazani" />
         <meta name="twitter:card" content="summary_large_image" />
-        {/* <meta name="twitter:site" content="@moopa_anime" />
-        <meta name="twitter:creator" content="@moopa_anime" /> */}
+        {/* <meta name="twitter:site" content="@kazani_anime" />
+        <meta name="twitter:creator" content="@kazani_anime" /> */}
         <meta
           name="twitter:image"
           content="https://beta.moopa.live/preview.png"
         />
         <meta
           name="twitter:image:alt"
-          content="Moopa is a website where you can find all the information about your favorite anime and manga."
+          content="Kazani is a website where you can find all the information about your favorite anime and manga."
         />
-        <meta name="twitter:title" content="Moopa - Schedule" />
+        <meta name="twitter:title" content="Kazani - Schedule" />
         <meta
           name="twitter:description"
-          content="Moopa is a website where you can find all the information about your favorite anime and manga."
+          content="Kazani is a website where you can find all the information about your favorite anime and manga."
         />
       </Head>
       <MobileNav hideProfile={true} />
