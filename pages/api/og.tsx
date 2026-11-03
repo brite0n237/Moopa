@@ -69,7 +69,7 @@ export default async function handler(request: any) {
               filter: "brightness(100%)",
             }}
           >
-            moopa
+            kazani
           </span>
           <h1
             style={{

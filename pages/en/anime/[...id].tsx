@@ -127,7 +127,7 @@ export default function Info({ info, color, chapterNotFound }: InfoTypes) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content={`Moopa - ${info.title.romaji || info.title.english}`}
+          content={`Kazani - ${info.title.romaji || info.title.english}`}
         />
         <meta
           name="twitter:description"

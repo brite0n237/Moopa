@@ -124,7 +124,7 @@ export function Navbar({
                   home ? "text-4xl text-action" : "text-white text-3xl"
                 }`}
               >
-                moopa
+                kazani
               </Link>
             )}
           </div>
