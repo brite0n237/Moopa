@@ -44,30 +44,6 @@ module.exports = withPWA({
   // output: "standalone",
   async redirects() {
     return [
-      {
-        source: "/donate",
-        destination: "https://ko-fi.com/factiven",
-        permanent: false,
-        basePath: false,
-      },
-      {
-        source: "/changelogs",
-        destination: "https://github.com/Ani-Moopa/Moopa/releases",
-        permanent: false,
-        basePath: false,
-      },
-      {
-        source: "/github",
-        destination: "https://github.com/Ani-Moopa/Moopa",
-        permanent: false,
-        basePath: false,
-      },
-      {
-        source: "/discord",
-        destination: "https://discord.gg/v5fjSdKwr2",
-        permanent: false,
-        basePath: false,
-      },
     ];
   },
   // async headers() {
