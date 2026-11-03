@@ -5,7 +5,8 @@
   "founder": "Factiven",
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma migrate deploy && npx prisma generate && next build",
+    "build": "prisma generate && next build",
+    "migrate:deploy": "prisma migrate deploy",
     "export": "next build && next export",
     "start": "next start",
     "type-check": "tsc",
