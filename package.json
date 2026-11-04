@@ -2,7 +2,7 @@
   "name": "kazani",
   "version": "4.4.0",
   "private": true,
-  "founder": "Factiven",
+  "founder": "brit_eon",
   "scripts": {
     "dev": "next dev",
     "build": "npx prisma generate && next build",
