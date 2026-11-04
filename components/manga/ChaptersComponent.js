@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import ChapterSelector from "./chapters";
-import axios from "axios";
-import pls from "@/utils/request";
 
 export default function ChaptersComponent({
   info,
@@ -26,12 +24,12 @@ export default function ChaptersComponent({
         // console.log(mangaId);
 
         if (mangaId) {
-          const Chapters = await pls.get(
-            `https://api.anify.tv/chapters/${mangaId}`
+          const res = await fetch(
+            `/api/manga/chapters/${encodeURIComponent(mangaId)}`
           );
-          //   console.log("clean this balls");
+          const Chapters = res.ok ? await res.json() : null;
 
-          if (!Chapters) {
+          if (!Chapters || Chapters.length === 0) {
             setLoading(false);
             setNotFound(true);
           } else {

@@ -14,8 +14,6 @@ import DetailTop from "@/components/anime/mobile/topSection";
 import Characters from "@/components/anime/charactersCard";
 import Content from "@/components/home/content";
 import { toast } from "sonner";
-import getAnifyInfo from "@/lib/anify/info";
-import getMangaId from "@/lib/anify/getMangaId";
 import { useRouter } from "next/router";
 import ChaptersComponent from "@/components/manga/ChaptersComponent";
 import pls from "@/utils/request/index";
@@ -125,13 +123,17 @@ export default function Manga({
           setInfo(info);
           setColor(color);
 
-          const mangaId = await getMangaId(
-            info?.title?.romaji,
-            info?.title?.english,
-            info?.title?.native
-          );
+          const lookupParams = new URLSearchParams({
+            anilist: String(aniId),
+            romaji: info?.title?.romaji || "",
+            english: info?.title?.english || "",
+            native: info?.title?.native || "",
+          });
+          const lookup = await fetch(`/api/manga/lookup?${lookupParams}`)
+            .then((res) => (res.ok ? res.json() : null))
+            .catch(() => null);
 
-          mangadexId = (mangaId as { id: string }).id;
+          mangadexId = lookup?.id;
 
           if (mangadexId) {
             setMangaId(mangadexId);
@@ -147,11 +149,13 @@ export default function Manga({
             // router.push("/en/manga/" + aniId, undefined, { shallow: true });
           }
         } else if (!aniId && mangadexId) {
-          data = await getAnifyInfo(mangadexId);
+          const lookup = await fetch(
+            `/api/manga/lookup?mangadex=${encodeURIComponent(mangadexId)}`
+          )
+            .then((res) => (res.ok ? res.json() : null))
+            .catch(() => null);
 
-          const aniListId =
-            data.mappings?.filter((i: any) => i.providerId === "anilist")[0]
-              ?.id || null;
+          const aniListId = lookup?.anilist || null;
 
           if (aniListId) {
             const [aniListData] = await pls.post(
@@ -176,14 +180,14 @@ export default function Manga({
             );
           }
 
-          const textColor = setTxtColor(data?.color);
+          const textColor = setTxtColor(info?.color);
 
           color = {
-            backgroundColor: `${data?.color || "#ffff"}`,
+            backgroundColor: `${info?.color || "#ffff"}`,
             color: textColor,
           };
 
-          setInfo(aniListId ? info : data);
+          setInfo(info);
           setColor(color);
           setMangaId(mangadexId);
         }

@@ -93,7 +93,7 @@ export function LeftBar({
                             onClick={() => setSeekPage(index)}
                           >
                             <Image
-                              src={`https://aoi.moopa.live/utils/image-proxy?url=${encodeURIComponent(
+                              src={`/api/manga/image?url=${encodeURIComponent(
                                 x.url
                               )}${
                                 x?.headers?.Referer
