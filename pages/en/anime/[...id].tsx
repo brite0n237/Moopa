@@ -10,7 +10,6 @@ import AniList from "@/components/media/aniList";
 import ListEditor from "@/components/listEditor";
 
 import DetailTop from "@/components/anime/mobile/topSection";
-import AnimeEpisode from "@/components/anime/episode";
 import { useAniList } from "@/lib/anilist/useAnilist";
 import Footer from "@/components/shared/footer";
 import { mediaInfoQuery } from "@/lib/graphql/query";
@@ -39,7 +38,7 @@ export default function Info({ info, color, chapterNotFound }: InfoTypes) {
   const [progress, setProgress] = useState<number>(0);
   const [statuses, setStatuses] = useState<any>(null);
   const [domainUrl, setDomainUrl] = useState("");
-  const [watch, setWatch] = useState<string>();
+  const [watch] = useState<string>();
 
   const [open, setOpen] = useState(false);
   const { id } = useRouter().query;
@@ -197,14 +196,6 @@ export default function Info({ info, color, chapterNotFound }: InfoTypes) {
             watchUrl={watch}
             progress={progress || 0}
             color={color}
-          />
-
-          <AnimeEpisode
-            info={info}
-            session={session}
-            progress={progress}
-            setProgress={setProgress}
-            setWatch={setWatch}
           />
 
           {info?.characters?.edges && (
