@@ -141,7 +141,7 @@ export default function FirstPanel({
               ref={(el) => (imageRefs.current[index] = el)}
             >
               <Image
-                src={`https://aoi.moopa.live/utils/image-proxy?url=${encodeURIComponent(
+                src={`/api/manga/image?url=${encodeURIComponent(
                   i.url,
                 )}${
                   i?.headers?.Referer

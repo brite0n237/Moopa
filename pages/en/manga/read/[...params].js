@@ -17,9 +17,11 @@ import { mediaInfoQuery } from "@/lib/graphql/query";
 // import { redis } from "@/lib/redis";
 // import getConsumetChapters from "@/lib/consumet/manga/getChapters";
 import { toast } from "sonner";
-import axios from "axios";
-import { redis } from "@/lib/redis";
-import getAnifyInfo from "@/lib/anify/info";
+import {
+  getPages,
+  getChapters,
+  getAnilistIdFromMangadex,
+} from "@/lib/mangadex";
 
 export default function Read({
   data,
@@ -273,66 +275,55 @@ export default function Read({
   );
 }
 
-async function fetchAnifyPages(id, number, provider, readId, key) {
-  try {
-    let cached;
-
-    if (redis) cached = await redis.get(`pages:${readId}`);
-
-    if (cached) {
-      return JSON.parse(cached);
-    }
-
-    const url = `https://api.anify.tv/pages?id=${id}&chapterNumber=${number}&providerId=${provider}&readId=${encodeURIComponent(
-      readId
-    )}`;
-
-    const { data } = await axios.get(url);
-
-    if (!data) {
-      return null;
-    }
-
-    if (redis)
-      await redis.set(
-        `pages:${readId}`,
-        JSON.stringify(data),
-        "EX",
-        60 * 60 * 24 * 7
-      );
-
-    return data;
-  } catch (error) {
-    return { error: "Error fetching data" };
-  }
-}
-
 export async function getServerSideProps(context) {
-  const key = process.env.API_KEY;
-
   const query = context.query;
   const providerId = query.params[0];
   const chapterId = query.chapterId;
-  const mediaId = query.id;
+  const mediaId = query.id; // MangaDex manga id
   const number = query.num;
-  const anilistId = query.anilist;
+  let anilistId = query.anilist;
 
   const session = await getServerSession(context.req, context.res, authOptions);
   const accessToken = session?.user?.token || null;
 
-  // const data = await getConsumetPages(mediaId, providerId, chapterId, key);
-  // const chapters = await getConsumetChapters(mediaId, redis);
+  let dataManga;
+  let chapters = [];
 
-  const dataManga = await fetchAnifyPages(
-    mediaId,
-    number,
-    providerId,
-    chapterId,
-    mediaId,
-    key
-  );
+  try {
+    [dataManga, chapters] = await Promise.all([
+      getPages(chapterId),
+      getChapters(mediaId),
+    ]);
+  } catch (error) {
+    console.error("MangaDex request failed:", error);
+    dataManga = { error: error.message };
+  }
 
-  let info;
+  if (!anilistId) {
+    try {
+      anilistId = await getAnilistIdFromMangadex(mediaId);
+    } catch (error) {
+      anilistId = null;
+    }
+  }
+
+  const hasProvider = chapters?.some((x) => x.providerId === providerId);
+
+  if (
+    !hasProvider ||
+    !Array.isArray(dataManga) ||
+    dataManga.length === 0 ||
+    dataManga?.error
+  ) {
+    return {
+      redirect: {
+        destination: `/en/manga/${anilistId || mediaId}?chapter=404`,
+        permanent: false,
+      },
+    };
+  }
+
+  let info = null;
 
   if (anilistId) {
     const response = await fetch("https://graphql.anilist.co/", {
@@ -350,39 +341,8 @@ export async function getServerSideProps(context) {
       }),
     });
     const json = await response.json();
-    info = json?.data?.Media;
-  } else {
-    const datas = await getAnifyInfo(mediaId);
-    if (datas) {
-      info = datas;
-    }
+    info = json?.data?.Media || null;
   }
-
-  const chapters = await (
-    await fetch("https://api.anify.tv/chapters/" + mediaId)
-  ).json();
-
-  if ((dataManga && dataManga?.error) || dataManga?.length === 0) {
-    return {
-      redirect: {
-        destination: `/en/manga/${anilistId}?chapter=404`,
-      },
-    };
-  }
-
-  /*
-  const { data } = await axios.get(
-    `https://beta.moopa.live/api/v2/info/${romaji}${
-      english ? `/${english}` : ""
-    }${native ? `/${native}` : ""}?id=${anilistId}`
-  );
-
-  if (data.error) {
-    return {
-      notFound: true,
-    };
-  }
-  */
 
   return {
     props: {
