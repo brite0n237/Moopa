@@ -13,6 +13,7 @@ import InfoChip from "./reused/infoChip";
 import Description from "./reused/description";
 import Skeleton from "react-loading-skeleton";
 import { AniListInfoTypes } from "types/info/AnilistInfoTypes";
+import WatchOnLinks from "../watchOnLinks";
 
 type DetailTopProps = {
   info?: AniListInfoTypes | null;
@@ -114,8 +115,10 @@ export default function DetailTop({
         </div>
       </div>
 
+      {isAnime && info && <WatchOnLinks links={info.externalLinks} />}
+
       <div className="hidden md:flex gap-5 items-center justify-start w-full">
-        {info ? (
+        {info ? isAnime ? null : (
           <button
             type="button"
             onClick={() => router.push(watchUrl ?? "#")}
@@ -218,7 +221,7 @@ export default function DetailTop({
         ) : (
           <div className="w-10 h-10 bg-secondary rounded-full" />
         )}
-        {info ? (
+        {info ? isAnime ? null : (
           <button
             type="button"
             onClick={() => router.push(watchUrl ?? "#")}

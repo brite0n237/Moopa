@@ -9,6 +9,14 @@ export interface AniListInfoTypes {
   bannerImage: string;
   description: string;
   episodes: any;
+  externalLinks?: {
+    site?: string | null;
+    url?: string | null;
+    type?: string | null;
+    language?: string | null;
+    color?: string | null;
+    isDisabled?: boolean | null;
+  }[];
   nextAiringEpisode: any;
   averageScore: number;
   popularity: number;
